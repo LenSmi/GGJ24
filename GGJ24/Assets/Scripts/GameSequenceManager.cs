@@ -1,3 +1,5 @@
+using MainShip;
+using OpenCover.Framework.Model;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,15 +18,55 @@ public class GameSequenceManager : MonoBehaviour
     /// 6. Game over for fail.
     /// 
     /// </summary>
+    /// 
+
+    private GameManager GameManager;
+    public GameUIManager GameUIManager;
+    public PlayerInputManager PlayerInputManager;
+    private int currentActionIndex = 0;
+
+    private void OnEnable()
+    {
+        GameManager = FindObjectOfType<GameManager>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        //Show Start UI here
+
+        if (GameManager.currentGameState == GameConstants.GameStates.Ready && Input.GetKeyDown(KeyCode.Space)) 
+        {
+            GameManager.currentGameState = GameConstants.GameStates.Playing;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void InitGame()
     {
-        
+        GameManager.currentGameState = GameConstants.GameStates.Playing;
+    }
+
+    public void GenerateRandomIndex()
+    {
+
+    }
+
+    IEnumerator ActivateGameSequence()
+    {
+        /// <summary>
+        /// 1. Start Timer
+        /// 2. While time is not zero, wait for player input.
+        /// 3. if player misses time zone, game over.
+        /// 4. if player inputs in time, check if input is correct.
+        /// 5. if player inputs incorrectly, game over
+        /// 6. if they input correctly, generate to action and gradually decrease time.
+        /// 7. Increase pace or have a newly generated set called level2?
+        /// </summary>
+        yield return null;
+    }
+
+    IEnumerator WaitForPlayerInput()
+    {
+        yield return null;
     }
 }

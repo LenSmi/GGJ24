@@ -1,3 +1,4 @@
+using OpenCover.Framework.Model;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,6 +25,15 @@ namespace MainShip
             Playing,
             GameOver
         }
+
+
+       public static readonly List<string> possibleActions = new List<string> 
+       { 
+            "Honk",
+            "Fart",
+            "Spin",
+            "Face"
+       };
     }
 }
 
