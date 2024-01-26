@@ -7,9 +7,15 @@ namespace MainShip
     public class GameManager : MonoBehaviour
     {
         public SceneLoader SceneLoader;
-        public bool isDebug;
+        public GameConstants.GameStates currentGameState;
 
         private void Start()
+        {
+            Init();
+        }
+
+
+        public void Init()
         {
             SceneLoader.LoadSceneToWorld(GameConstants.SceneTypes.STARTMENU);
         }

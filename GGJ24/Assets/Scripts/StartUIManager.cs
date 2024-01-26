@@ -7,8 +7,8 @@ using UnityEngine;
 
 public class StartUIManager : MonoBehaviour
 {   
-    public GameManager GameManager;
-    public SceneLoader SceneLoader;
+    private GameManager GameManager;
+    private SceneLoader SceneLoader;
     public GameObject StartMenu;
     public CanvasGroup startMenuCanvas;
     public float fadeInDuration = 1.0f;
@@ -18,6 +18,8 @@ public class StartUIManager : MonoBehaviour
     private void OnEnable()
     {
         SceneLoader = FindObjectOfType<SceneLoader>();
+        GameManager = FindObjectOfType<GameManager>();
+        GameManager.currentGameState = GameConstants.GameStates.Menu;
     }
 
     public void StartGame()
@@ -26,7 +28,7 @@ public class StartUIManager : MonoBehaviour
 #if UNITY_EDITOR
         if (GameConstants.isDebug) 
         {
-            sceneType = GameConstants.SceneTypes.TESTSCENE;
+            sceneType = GameConstants.SceneTypes.MAIN;
         }
 #endif
         SceneLoader.LoadSceneToWorld(sceneType);
@@ -54,6 +56,7 @@ public class StartUIManager : MonoBehaviour
     void UnloadUIScene()
     {
         SceneLoader.UnloadSceneFromWorld(GameConstants.SceneTypes.STARTMENU);
+        GameManager.currentGameState = GameConstants.GameStates.Ready;
     }
 
 }
