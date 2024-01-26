@@ -6,7 +6,8 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public class StartUIManager : MonoBehaviour
-{
+{   
+    public GameManager GameManager;
     public SceneLoader SceneLoader;
     public GameObject StartMenu;
     public CanvasGroup startMenuCanvas;
@@ -21,7 +22,14 @@ public class StartUIManager : MonoBehaviour
 
     public void StartGame()
     {
-        SceneLoader.LoadSceneToWorld(GameConstants.SceneTypes.MAIN);
+        GameConstants.SceneTypes sceneType = GameConstants.SceneTypes.MAIN;
+#if UNITY_EDITOR
+        if (GameConstants.isDebug) 
+        {
+            sceneType = GameConstants.SceneTypes.TESTSCENE;
+        }
+#endif
+        SceneLoader.LoadSceneToWorld(sceneType);
         StartCoroutine(FadeIn(startMenuCanvas,0f));
         FadeInFinished += UnloadUIScene;
     }

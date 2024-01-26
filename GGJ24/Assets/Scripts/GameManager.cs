@@ -7,6 +7,7 @@ namespace MainShip
     public class GameManager : MonoBehaviour
     {
         public SceneLoader SceneLoader;
+        public bool isDebug;
 
         private void Start()
         {
