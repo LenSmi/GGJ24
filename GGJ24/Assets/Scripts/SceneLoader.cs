@@ -8,7 +8,6 @@ namespace MainShip
 {
     public class SceneLoader : MonoBehaviour
     {
-
         public void LoadSceneToWorld(GameConstants.SceneTypes sceneToLoad)
         {
             string _sceneName = sceneToLoad.ToString();
@@ -22,6 +21,19 @@ namespace MainShip
             {
                 SceneManager.LoadScene(_sceneName, LoadSceneMode.Additive);
                 SceneManager.sceneLoaded += OnSceneLoaded;
+            }
+
+        }
+
+        public void UnloadSceneFromWorld(GameConstants.SceneTypes sceneToUnload)
+        {
+            string _sceneName = sceneToUnload.ToString();
+            Scene scene = SceneManager.GetSceneByName(_sceneName);
+          
+
+            if (IsSceneLoaded(scene))
+            {
+                SceneManager.UnloadSceneAsync(_sceneName, UnloadSceneOptions.None);
             }
 
         }

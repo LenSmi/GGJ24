@@ -12,6 +12,15 @@ namespace MainShip
             STARTMENU,
             MAIN
         }
+
+        public enum GameStates
+        {
+            Menu,
+            Paused,
+            Ready,
+            Playing,
+            GameOver
+        }
     }
 }
 
