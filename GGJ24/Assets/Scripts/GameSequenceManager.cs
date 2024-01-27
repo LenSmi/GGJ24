@@ -108,6 +108,7 @@ public class GameSequenceManager : MonoBehaviour
 
     void SetDifficulty(int currentCorrectAmount)
     {
+
         if (currentCorrectAmount >= GameConstants.mediumThreshold && GameManager.difficulty == GameConstants.Difficulty.EASY)
         {
             guessTimer = GameConstants.mediumGuessTimerConst;
@@ -235,9 +236,19 @@ public class GameSequenceManager : MonoBehaviour
 
     IEnumerator DifficultyTransition(GameConstants.Difficulty difficulty, float duration)
     {
+        float elapsedTime = 0f;
         GameUIManager.inputText.color = Color.black;
         GameUIManager.inputText.text = $"Hoho let's see if you can keep up with my {difficulty} tricks!";
-        yield return new WaitForSeconds(duration);
+
+        while (elapsedTime < duration)
+        {
+            GameUIManager.inputText.fontSize = GameConstants.dialogueTextSize;
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        GameUIManager.inputText.fontSize = GameConstants.gameTextSize;
+
     }
 
 }
