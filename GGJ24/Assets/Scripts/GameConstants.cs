@@ -12,7 +12,8 @@ namespace MainShip
 
         public const string StartText = "Press Space to Start!";
 
-        public const float gameTextSize = 2f;
+        public const float bigGameTextSize = 6f;
+        public const float gameTextSize = 3f;
         public const float dialogueTextSize = 1.5f;
 
         public const float maxLaughFill = 0.5f;

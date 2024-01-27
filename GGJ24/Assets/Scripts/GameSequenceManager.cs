@@ -86,7 +86,7 @@ public class GameSequenceManager : MonoBehaviour
         randomActionValue = GameConstants.possibleActions[randomValue];
 
         GameUIManager.inputText.text = randomActionValue;
-        StartCoroutine(ShowWantedAction(4f, guessTimer));
+        StartCoroutine(ShowWantedAction(GameConstants.bigGameTextSize, guessTimer));
 
         Debug.Log("======GENERATING VALUES======");
         Debug.Log("Winning value is" + randomActionValue);
