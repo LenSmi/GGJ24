@@ -10,7 +10,7 @@ public class GameUIManager : MonoBehaviour
     private GameManager GameManager;
     public GameObject GameUI;
     public GameObject GameOverUI;
-    public TextMeshProUGUI inputText;
+    public TextMeshPro inputText;
     public TextMeshProUGUI timerText;
     public Image fill;
 

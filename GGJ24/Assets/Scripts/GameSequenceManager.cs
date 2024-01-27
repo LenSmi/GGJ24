@@ -84,6 +84,7 @@ public class GameSequenceManager : MonoBehaviour
 
         randomActionValue = GameConstants.possibleActions[randomValue];
 
+        GameUIManager.inputText.fontSize = GameConstants.gameTextSize;
         GameUIManager.inputText.text = randomActionValue;
 
         Debug.Log("======GENERATING VALUES======");
@@ -99,8 +100,12 @@ public class GameSequenceManager : MonoBehaviour
         correctActions = 0;
         currentLaughs = GameConstants.maxLaughFill;
         GameUIManager.fill.fillAmount = currentLaughs;
-        GameUIManager.timerText.text = GameConstants.easyGuessTimerConst.ToString();
+
+        guessTimer = GameConstants.easyGuessTimerConst;
+
         GameManager.currentGameState = GameConstants.GameStates.GameOver;
+
+        GameUIManager.timerText.text = GameConstants.easyGuessTimerConst.ToString();
         GameUIManager.inputText.text = GameConstants.StartText;
         GameUIManager.timerText.text = guessTimer.ToString("Text");
         GameUIManager.inputText.color = Color.black;
@@ -148,7 +153,6 @@ public class GameSequenceManager : MonoBehaviour
         while (currentLaughs > 0.09f)
         {
             yield return new WaitForSeconds(1.5f);
-
             GenerateGameValues();
             PlayerInputManager.playerInput = null;
             GameUIManager.inputText.color = Color.black;
@@ -236,19 +240,11 @@ public class GameSequenceManager : MonoBehaviour
 
     IEnumerator DifficultyTransition(GameConstants.Difficulty difficulty, float duration)
     {
-        float elapsedTime = 0f;
         GameUIManager.inputText.color = Color.black;
         GameUIManager.inputText.text = $"Hoho let's see if you can keep up with my {difficulty} tricks!";
+        GameUIManager.inputText.fontSize = GameConstants.dialogueTextSize;
 
-        while (elapsedTime < duration)
-        {
-            GameUIManager.inputText.fontSize = GameConstants.dialogueTextSize;
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        GameUIManager.inputText.fontSize = GameConstants.gameTextSize;
-
+        yield return new WaitForSeconds(duration);
     }
 
 }
