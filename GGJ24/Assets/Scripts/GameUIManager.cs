@@ -11,6 +11,7 @@ public class GameUIManager : MonoBehaviour
     public GameObject GameUI;
     public GameObject GameOverUI;
     public TextMeshPro inputText;
+    public RectTransform inputTextTransform;
     public TextMeshProUGUI timerText;
     public Image fill;
 

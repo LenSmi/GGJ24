@@ -10,11 +10,14 @@ namespace MainShip
         //For Lenny -> Remember to set to false when pushing to git.
         public const bool isDebug = true;
 
-        public const string StartText = "Press Space to Start!";
+        public const string StartText = "Make me laugh... Space to start...";
 
         public const float bigGameTextSize = 6f;
         public const float gameTextSize = 3f;
         public const float dialogueTextSize = 1.5f;
+
+        public const float failedActionRotZ = 90f;
+        public const float rotSpeed = 0.15f;
 
         public const float maxLaughFill = 0.5f;
         public const float laughLossAmount = 0.2f;
