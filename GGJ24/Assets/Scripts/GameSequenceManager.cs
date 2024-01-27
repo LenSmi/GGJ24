@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class GameSequenceManager : MonoBehaviour
 {
@@ -84,8 +85,8 @@ public class GameSequenceManager : MonoBehaviour
 
         randomActionValue = GameConstants.possibleActions[randomValue];
 
-        GameUIManager.inputText.fontSize = GameConstants.gameTextSize;
         GameUIManager.inputText.text = randomActionValue;
+        StartCoroutine(ShowWantedAction(4f, guessTimer));
 
         Debug.Log("======GENERATING VALUES======");
         Debug.Log("Winning value is" + randomActionValue);
@@ -175,6 +176,7 @@ public class GameSequenceManager : MonoBehaviour
             if (PlayerInputManager.CheckInput())
             {
                 PlayerInputManager.HandleInput(PlayerInputManager.currentKey);
+                GameUIManager.inputText.fontSize = GameConstants.gameTextSize;
                 GameUIManager.inputText.text = PlayerInputManager.playerInput;
                 playerHasGivenInput = true;
             }
@@ -245,6 +247,23 @@ public class GameSequenceManager : MonoBehaviour
         GameUIManager.inputText.fontSize = GameConstants.dialogueTextSize;
 
         yield return new WaitForSeconds(duration);
+    }
+
+    IEnumerator ShowWantedAction(float target, float duration)
+    {
+
+        float elapsedTime = 0f;
+
+        while (duration >= elapsedTime && !PlayerInputManager.CheckInput())
+        {
+            GameUIManager.inputText.fontSize = Mathf.Lerp(target,GameConstants.gameTextSize, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        GameUIManager.inputText.fontSize = GameConstants.gameTextSize;
+
+
     }
 
 }

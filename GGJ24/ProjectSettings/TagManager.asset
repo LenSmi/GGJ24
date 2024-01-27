@@ -9,20 +9,20 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Light
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Arms
+  - Ground
+  - Face
+  - Eye
+  - Eye2
+  - Nose
+  - Lips
+  - Hair
+  - Face
+  - Collar
+  - MainBody
   - 
   - 
   - 
