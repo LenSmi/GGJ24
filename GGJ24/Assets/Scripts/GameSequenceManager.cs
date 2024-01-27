@@ -150,7 +150,7 @@ public class GameSequenceManager : MonoBehaviour
     IEnumerator ActivateGameSequence()
     {
 
-        while (currentLaughs > 0.09f)
+        while (currentLaughs >= 0.05f)
         {
             yield return new WaitForSeconds(1.5f);
             GenerateGameValues();
