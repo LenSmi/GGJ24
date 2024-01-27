@@ -1,28 +1,33 @@
+using MainShip;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameUIManager : MonoBehaviour
 {
+    private GameManager GameManager;
     public GameObject GameUI;
     public GameObject GameOverUI;
     public TextMeshProUGUI inputText;
     public TextMeshProUGUI timerText;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Image fill;
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
-        
+        GameManager = FindObjectOfType<GameManager>();
+        fill.fillAmount = GameConstants.maxLaughFill;
     }
-
     public void SetGameOverUI()
     {
         GameOverUI.SetActive(true);
+    }
+
+    public void RestartGame() 
+    {
+        GameOverUI.SetActive(false);
+        GameManager.currentGameState = GameConstants.GameStates.Ready;
+        
     }
 }

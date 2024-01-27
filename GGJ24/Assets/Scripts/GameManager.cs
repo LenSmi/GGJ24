@@ -8,6 +8,7 @@ namespace MainShip
     {
         public SceneLoader SceneLoader;
         public GameConstants.GameStates currentGameState;
+        public GameConstants.Difficulty difficulty;
 
         private void Start()
         {

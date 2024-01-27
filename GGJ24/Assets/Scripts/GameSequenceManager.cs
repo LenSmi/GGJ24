@@ -26,8 +26,9 @@ public class GameSequenceManager : MonoBehaviour
     public PlayerInputManager PlayerInputManager;
     private int currentActionIndex = 0;
     private string randomActionValue;
-    public float guessTimer;
-    public int lives = 3;
+    private float guessTimer;
+    private int correctActions;
+    private float currentLaughs;
     private float timer;
     private int previousValue;
     private bool playerHasGivenInput;
@@ -36,6 +37,17 @@ public class GameSequenceManager : MonoBehaviour
     private void OnEnable()
     {
         GameManager = FindObjectOfType<GameManager>();
+    }
+
+    private void Start()
+    {
+        GameOverEvent += GameUIManager.SetGameOverUI;
+        GameOverEvent += GameOverSequence;
+        currentLaughs = GameConstants.maxLaughFill;
+        GameUIManager.fill.fillAmount = currentLaughs;
+
+        GameManager.difficulty = GameConstants.Difficulty.EASY;
+        guessTimer = GameConstants.easyGuessTimerConst;
     }
 
     // Start is called before the first frame update
@@ -50,12 +62,11 @@ public class GameSequenceManager : MonoBehaviour
     }
     public void InitGame()
     {
-
-        GameOverEvent += GameUIManager.SetGameOverUI;
-        GameOverEvent += GameOverSequence;
-
+        currentLaughs = GameConstants.maxLaughFill;
+        GameUIManager.fill.fillAmount = currentLaughs;
         GameUIManager.inputText.text = "Listen";
         GameManager.currentGameState = GameConstants.GameStates.Playing;
+        correctActions = 0;
         StartCoroutine(ActivateGameSequence());
     }
 
@@ -85,7 +96,39 @@ public class GameSequenceManager : MonoBehaviour
     public void GameOverSequence()
     {
         Debug.Log("You Game Over");
+        correctActions = 0;
+        currentLaughs = GameConstants.maxLaughFill;
+        GameUIManager.fill.fillAmount = currentLaughs;
+        GameUIManager.timerText.text = GameConstants.easyGuessTimerConst.ToString();
+        GameManager.currentGameState = GameConstants.GameStates.GameOver;
+        GameUIManager.inputText.text = GameConstants.StartText;
+        GameUIManager.timerText.text = guessTimer.ToString("Text");
+        GameUIManager.inputText.color = Color.black;
     }
+
+    void SetDifficulty(int currentCorrectAmount)
+    {
+        if (currentCorrectAmount >= GameConstants.mediumThreshold && GameManager.difficulty == GameConstants.Difficulty.EASY)
+        {
+            guessTimer = GameConstants.mediumGuessTimerConst;
+            GameManager.difficulty = GameConstants.Difficulty.MEDIUM;
+            StartCoroutine(DifficultyTransition(GameManager.difficulty, 2f));
+        }
+        else if (currentCorrectAmount >= GameConstants.hardThreshold && GameManager.difficulty == GameConstants.Difficulty.MEDIUM)
+        {
+            guessTimer = GameConstants.hardGuessTimerConst;
+            GameManager.difficulty = GameConstants.Difficulty.HARD;
+            StartCoroutine(DifficultyTransition(GameManager.difficulty, 2f));
+        }
+        else if (currentCorrectAmount >= GameConstants.masterThreshold && GameManager.difficulty == GameConstants.Difficulty.HARD)
+        {
+            guessTimer = GameConstants.masterGuessTimerConst;
+            GameManager.difficulty = GameConstants.Difficulty.MEDIUM;
+            StartCoroutine(DifficultyTransition(GameManager.difficulty, 2f));
+        }
+
+    }
+
 
     /// <summary>
     /// 1. Start Timer
@@ -101,7 +144,7 @@ public class GameSequenceManager : MonoBehaviour
     IEnumerator ActivateGameSequence()
     {
 
-        while (lives > 0)
+        while (currentLaughs > 0.09f)
         {
             yield return new WaitForSeconds(1.5f);
 
@@ -142,16 +185,59 @@ public class GameSequenceManager : MonoBehaviour
         if (PlayerInputManager.playerInput == randomActionValue)
         {
             Debug.Log("You win!");
+            float laughsGained = GameUIManager.fill.fillAmount + GameConstants.laughGainAmount;
+            correctActions += 1;
             GameUIManager.inputText.color = Color.green;
+            yield return StartCoroutine(GainHealth(0.3f, laughsGained));
         }
         else
         {
             Debug.Log("You Lose!");
-            lives -= 1;
+            float laughsLost = GameUIManager.fill.fillAmount - GameConstants.laughLossAmount;
             GameUIManager.inputText.color = Color.red;
+            yield return StartCoroutine(LoseHealth(0.3f, laughsLost));
         }
 
+        SetDifficulty(correctActions);
         PlayerInputManager.currentKey = KeyCode.None;
 
     }
+
+    IEnumerator LoseHealth(float duration,float target)
+    {
+        float elapsedTime = 0f;
+
+        while (duration >= elapsedTime)
+        {
+            GameUIManager.fill.fillAmount = Mathf.Lerp(GameUIManager.fill.fillAmount, target , elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        GameUIManager.fill.fillAmount = target;
+        currentLaughs -= GameConstants.laughLossAmount;
+    }
+
+    IEnumerator GainHealth(float duration, float target)
+    {
+        float elapsedTime = 0f;
+
+        while (duration >= elapsedTime)
+        {
+            GameUIManager.fill.fillAmount = Mathf.Lerp(GameUIManager.fill.fillAmount, target, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        GameUIManager.fill.fillAmount = target;
+        currentLaughs += GameConstants.laughGainAmount;
+    }
+
+    IEnumerator DifficultyTransition(GameConstants.Difficulty difficulty, float duration)
+    {
+        GameUIManager.inputText.color = Color.black;
+        GameUIManager.inputText.text = $"Hoho let's see if you can keep up with my {difficulty} tricks!";
+        yield return new WaitForSeconds(duration);
+    }
+
 }
