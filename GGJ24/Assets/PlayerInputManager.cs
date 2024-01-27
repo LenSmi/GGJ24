@@ -29,7 +29,7 @@ public class PlayerInputManager : MonoBehaviour
         }
     }
 
-    public void CheckInput()
+    public bool CheckInput()
     {
         foreach (KeyCode key in System.Enum.GetValues(typeof(KeyCode)))
         {
@@ -37,6 +37,15 @@ public class PlayerInputManager : MonoBehaviour
             {
                 currentKey = key;
             }
+        }
+
+        if(currentKey != KeyCode.None)
+        {
+            return true;
+        }
+        else
+        { 
+        return false; 
         }
     }
 }

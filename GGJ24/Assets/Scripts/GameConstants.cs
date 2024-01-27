@@ -12,7 +12,7 @@ namespace MainShip
         public enum SceneTypes
         {
             MANAGER,
-            STARTMENU,
+            UI,
             MAIN,
             TESTSCENE
         }

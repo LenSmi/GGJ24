@@ -33,7 +33,7 @@ public class StartUIManager : MonoBehaviour
 #endif
         SceneLoader.LoadSceneToWorld(sceneType);
         StartCoroutine(FadeIn(startMenuCanvas,0f));
-        FadeInFinished += UnloadUIScene;
+        FadeInFinished += UnloadStartMenu;
     }
 
     IEnumerator FadeIn(CanvasGroup canvasGroup, float targetAlpha)
@@ -53,9 +53,9 @@ public class StartUIManager : MonoBehaviour
     }
 
 
-    void UnloadUIScene()
+    void UnloadStartMenu()
     {
-        SceneLoader.UnloadSceneFromWorld(GameConstants.SceneTypes.STARTMENU);
+        StartMenu.SetActive(false);
         GameManager.currentGameState = GameConstants.GameStates.Ready;
     }
 

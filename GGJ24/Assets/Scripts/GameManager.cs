@@ -17,7 +17,7 @@ namespace MainShip
 
         public void Init()
         {
-            SceneLoader.LoadSceneToWorld(GameConstants.SceneTypes.STARTMENU);
+            SceneLoader.LoadSceneToWorld(GameConstants.SceneTypes.UI);
         }
     }
 }

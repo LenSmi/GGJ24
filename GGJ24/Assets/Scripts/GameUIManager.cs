@@ -6,7 +6,9 @@ using UnityEngine;
 public class GameUIManager : MonoBehaviour
 {
     public GameObject GameUI;
+    public GameObject GameOverUI;
     public TextMeshProUGUI inputText;
+    public TextMeshProUGUI timerText;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,5 +19,10 @@ public class GameUIManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void SetGameOverUI()
+    {
+        GameOverUI.SetActive(true);
     }
 }
