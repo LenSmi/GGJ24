@@ -7,22 +7,29 @@ using UnityEngine.Audio;
 public class AudioManager : MonoBehaviour
 {
 
-    public AudioSource audioSource;
+    public AudioSource mainAudioSource;
+    public AudioSource sfxAudioSource;
     public AudioClip gameTheme;
-    public AudioClip incorrectSFX;
-    public AudioClip correctSF;
-    public AudioMixer audioMixer;
 
+    public AudioClip[] farts;
 
     public void PlayMainTheme()
     {
         ChangeTempo(GameConstants.easyTempo);
-        audioSource.clip = gameTheme;
-        audioSource.Play();
+        mainAudioSource.clip = gameTheme;
+        mainAudioSource.Play();
     }
 
     public void ChangeTempo(float tempo)
     {
-        audioSource.pitch = tempo;
+        mainAudioSource.pitch = tempo;
+    }
+
+    public void SpawnFart()
+    {
+        int randomIndex;
+
+        randomIndex = Random.Range(0,farts.Length);
+        sfxAudioSource.PlayOneShot(farts[randomIndex]);
     }
 }

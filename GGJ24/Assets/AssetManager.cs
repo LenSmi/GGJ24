@@ -68,23 +68,34 @@ public class AssetManager : MonoBehaviour
 
     public void SmilingFace()
     {
-
+        clownHair.sprite = smilingClownHairSprite;
+        clownFace.sprite = smilingClownFaceSprite;
+        clownMouth.sprite = smilingClownMouthSprite;
+        clownNose.sprite = smilingClownNoseSprite;
     }
 
     public void NeutralFace()
     {
-
+        clownHair.sprite = neutralClownHairSprite;
+        clownFace.sprite = neutralClownFaceSprite;
+        clownMouth.sprite = neutralClownMouthSprite;
+        clownNose.sprite = neutralClownNoseSprite;
     }
 
     public void SadFace()
     {
-
+        clownHair.sprite = sadClownHairSprite;
+        clownFace.sprite = sadClownFaceSprite;
+        clownMouth.sprite = sadClownMouthSprite;
+        clownNose.sprite = sadClownNoseSprite;
     }
 
     public void AngryFace()
     {
-
+        clownHair.sprite = angryClownHairSprite;
+        clownFace.sprite = angryClownFaceSprite;
+        clownMouth.sprite = angryClownMouthSprite;
+        clownNose.sprite = angryClownNoseSprite;
     }
-
 
 }

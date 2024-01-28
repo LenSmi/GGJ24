@@ -99,6 +99,7 @@ public class GameSequenceManager : MonoBehaviour
     public void GameOverSequence()
     {
         StopAllCoroutines();
+        assetManager.NeutralFace();
         GameUIManager.inputText.fontSize = GameConstants.dialogueTextSize;
         Debug.Log("You Game Over");
         studentAnimator.SetTrigger(GameConstants.deathTrigger);
@@ -151,11 +152,27 @@ public class GameSequenceManager : MonoBehaviour
         studentAnimator.ResetTrigger(animationName);
     }
 
-    public void CheckLaughMeter(float currentLaughs)
+    public void CheckLaughMeter()
     {
-        switch (currentLaughs)
+        if (currentLaughs >= GameConstants.happyThreshold)
         {
-
+            assetManager.HappyFace();
+        }
+        else if (currentLaughs >= GameConstants.smilingThreshold)
+        {
+            assetManager.SmilingFace();
+        }
+        else if (currentLaughs >= GameConstants.neutralThreshold)
+        {
+            assetManager.NeutralFace();
+        }
+        else if (currentLaughs >= GameConstants.sadThreshold)
+        {
+            assetManager.SadFace();
+        }
+        else if (currentLaughs >= GameConstants.angryThreshold)
+        {
+            assetManager.AngryFace();
         }
     }
 
@@ -215,6 +232,7 @@ public class GameSequenceManager : MonoBehaviour
 
         if (PlayerInputManager.playerInput == randomActionValue)
         {
+            GameManager.audioManager.SpawnFart();
             float laughsGained = GameUIManager.fill.fillAmount + GameConstants.laughGainAmount;
             correctActions += 1;
             GameUIManager.inputText.color = Color.green;
@@ -231,6 +249,7 @@ public class GameSequenceManager : MonoBehaviour
             yield return StartCoroutine(LoseHealth(0.3f, laughsLost));
         }
 
+        CheckLaughMeter();
         SetDifficulty(correctActions);
         PlayerInputManager.currentKey = KeyCode.None;
 

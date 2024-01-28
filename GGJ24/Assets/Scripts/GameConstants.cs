@@ -47,6 +47,9 @@ namespace MainShip
         public const float happyThreshold = 0.8f;
         public const float smilingThreshold = 0.6f;
         public const float neutralThreshold = 0.5f;
+        public const float sadThreshold = 0.4f;
+        public const float angryThreshold = 0.2f;
+
 
 
         public enum SceneTypes
