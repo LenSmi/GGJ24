@@ -15,7 +15,7 @@ namespace MainShip
         public const float gameTextSize = 3f;
         public const float dialogueTextSize = 1.6f;
 
-        public const float startFadeInDuration = 0.5f;
+        public const float startFadeInDuration = 0.1f;
 
         public const float failedActionRotZ = 90f;
         public const float rotSpeed = 0.15f;
