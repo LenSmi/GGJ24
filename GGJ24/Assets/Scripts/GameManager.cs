@@ -7,6 +7,7 @@ namespace MainShip
     public class GameManager : MonoBehaviour
     {
         public SceneLoader SceneLoader;
+        public AudioManager audioManager;
         public GameConstants.GameStates currentGameState;
         public GameConstants.Difficulty difficulty;
 

@@ -45,6 +45,7 @@ public class GameSequenceManager : MonoBehaviour
     {
         GameOverEvent += GameUIManager.SetGameOverUI;
         GameOverEvent += GameOverSequence;
+        GameManager.audioManager.PlayMainTheme(); 
 
         GameManager.difficulty = GameConstants.Difficulty.EASY;
         guessTimer = GameConstants.easyGuessTimerConst;
@@ -96,6 +97,8 @@ public class GameSequenceManager : MonoBehaviour
 
     public void GameOverSequence()
     {
+        GameUIManager.inputText.fontSize = GameConstants.dialogueTextSize;
+
         Debug.Log("You Game Over");
         studentAnimator.SetTrigger(GameConstants.deathTrigger);
         correctActions = 0;
@@ -108,7 +111,6 @@ public class GameSequenceManager : MonoBehaviour
         GameUIManager.inputTextTransform.eulerAngles = new Vector3(0, 0, 0);
         GameUIManager.timerText.text = GameConstants.easyGuessTimerConst.ToString();
         GameUIManager.inputText.text = GameConstants.StartText;
-        GameUIManager.inputText.fontSize = GameConstants.dialogueTextSize;
         GameUIManager.timerText.text = guessTimer.ToString("Text");
         GameUIManager.inputText.color = Color.black;
     }
