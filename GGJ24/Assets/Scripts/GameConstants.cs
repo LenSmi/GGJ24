@@ -35,9 +35,9 @@ namespace MainShip
         public const float hardGuessTimerConst = 0.5f;
         public const float masterGuessTimerConst = 0.25f;
 
-        public const int mediumThreshold = 10;
-        public const int hardThreshold = 20;
-        public const int masterThreshold = 50;
+        public const int mediumThreshold = 7;
+        public const int hardThreshold = 18;
+        public const int masterThreshold = 30;
 
         public const string incorrectAnswerTrigger = "Incorrect";
         public const string correctAnswerTrigger = "Correct";
