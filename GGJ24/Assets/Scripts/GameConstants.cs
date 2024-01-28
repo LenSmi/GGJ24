@@ -11,6 +11,12 @@ namespace MainShip
 
         public const string StartText = "Make me laugh...<br>Space to start...";
 
+        public const float easyTempo = 1.0f;
+        public const float mediumTempo = 1.1f;
+        public const float hardTempo = 1.2f;
+        public const float masterTemp = 1.3f;
+
+
         public const float bigGameTextSize = 6f;
         public const float gameTextSize = 3f;
         public const float dialogueTextSize = 1.2f;
@@ -37,6 +43,10 @@ namespace MainShip
         public const string correctAnswerTrigger = "Correct";
         public const string idleTrigger = "Idle";
         public const string deathTrigger = "Death";
+
+        public const float happyThreshold = 0.8f;
+        public const float smilingThreshold = 0.6f;
+        public const float neutralThreshold = 0.5f;
 
 
         public enum SceneTypes

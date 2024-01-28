@@ -24,6 +24,7 @@ public class GameSequenceManager : MonoBehaviour
     private GameManager GameManager;
     public GameUIManager GameUIManager;
     public PlayerInputManager PlayerInputManager;
+    public AssetManager assetManager;
     private int currentActionIndex = 0;
     private string randomActionValue;
     private float guessTimer;
@@ -97,16 +98,14 @@ public class GameSequenceManager : MonoBehaviour
 
     public void GameOverSequence()
     {
+        StopAllCoroutines();
         GameUIManager.inputText.fontSize = GameConstants.dialogueTextSize;
-
         Debug.Log("You Game Over");
         studentAnimator.SetTrigger(GameConstants.deathTrigger);
         correctActions = 0;
         currentLaughs = GameConstants.maxLaughFill;
         GameUIManager.fill.fillAmount = currentLaughs;
-
         guessTimer = GameConstants.easyGuessTimerConst;
-
         GameManager.currentGameState = GameConstants.GameStates.GameOver;
         GameUIManager.inputTextTransform.eulerAngles = new Vector3(0, 0, 0);
         GameUIManager.timerText.text = GameConstants.easyGuessTimerConst.ToString();
@@ -121,6 +120,8 @@ public class GameSequenceManager : MonoBehaviour
 
         if (currentCorrectAmount >= GameConstants.mediumThreshold && GameManager.difficulty == GameConstants.Difficulty.EASY)
         {
+            assetManager.HappyFace();
+            GameManager.audioManager.ChangeTempo(GameConstants.mediumTempo);
             GameUIManager.inputTextTransform.eulerAngles = new Vector3(0, 0, 0);
             guessTimer = GameConstants.mediumGuessTimerConst;
             GameManager.difficulty = GameConstants.Difficulty.MEDIUM;
@@ -128,6 +129,7 @@ public class GameSequenceManager : MonoBehaviour
         }
         else if (currentCorrectAmount >= GameConstants.hardThreshold && GameManager.difficulty == GameConstants.Difficulty.MEDIUM)
         {
+            GameManager.audioManager.ChangeTempo(GameConstants.mediumTempo);
             GameUIManager.inputTextTransform.eulerAngles = new Vector3(0, 0, 0);
             guessTimer = GameConstants.hardGuessTimerConst;
             GameManager.difficulty = GameConstants.Difficulty.HARD;
@@ -135,6 +137,7 @@ public class GameSequenceManager : MonoBehaviour
         }
         else if (currentCorrectAmount >= GameConstants.masterThreshold && GameManager.difficulty == GameConstants.Difficulty.HARD)
         {
+            GameManager.audioManager.ChangeTempo(GameConstants.mediumTempo);
             GameUIManager.inputTextTransform.eulerAngles = new Vector3(0, 0, 0);
             guessTimer = GameConstants.masterGuessTimerConst;
             GameManager.difficulty = GameConstants.Difficulty.MEDIUM;
@@ -146,6 +149,14 @@ public class GameSequenceManager : MonoBehaviour
     public void AnimationComplete(string animationName)
     {
         studentAnimator.ResetTrigger(animationName);
+    }
+
+    public void CheckLaughMeter(float currentLaughs)
+    {
+        switch (currentLaughs)
+        {
+
+        }
     }
 
 
@@ -262,7 +273,7 @@ public class GameSequenceManager : MonoBehaviour
     IEnumerator DifficultyTransition(GameConstants.Difficulty difficulty, float duration)
     {
         GameUIManager.inputText.color = Color.black;
-        GameUIManager.inputText.text = $"Hoho let's see if you can keep up with my {difficulty} tricks!";
+        GameUIManager.inputText.text = $"Hoho let's see if you can keep up with my <color=\"red\">{difficulty}</color> tricks!";
         GameUIManager.inputText.fontSize = GameConstants.dialogueTextSize;
 
         yield return new WaitForSeconds(duration);

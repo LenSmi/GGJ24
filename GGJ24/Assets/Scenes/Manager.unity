@@ -327,6 +327,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 1495884208}
   gameTheme: {fileID: 8300000, guid: fb6841ed3482fa2499ae0cb065ae74f1, type: 3}
+  incorrectSFX: {fileID: 0}
+  correctSF: {fileID: 0}
+  audioMixer: {fileID: 0}
 --- !u!1 &1529654932
 GameObject:
   m_ObjectHideFlags: 0
