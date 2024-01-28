@@ -1,5 +1,4 @@
 using MainShip;
-using OpenCover.Framework.Model;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -34,6 +33,8 @@ public class GameSequenceManager : MonoBehaviour
     private int previousValue;
     private bool playerHasGivenInput;
     public event Action GameOverEvent;
+
+    public Animator studentAnimator;
 
     private void OnEnable()
     {
@@ -96,6 +97,7 @@ public class GameSequenceManager : MonoBehaviour
     public void GameOverSequence()
     {
         Debug.Log("You Game Over");
+        studentAnimator.SetTrigger(GameConstants.deathTrigger);
         correctActions = 0;
         currentLaughs = GameConstants.maxLaughFill;
         GameUIManager.fill.fillAmount = currentLaughs;
@@ -137,6 +139,11 @@ public class GameSequenceManager : MonoBehaviour
             StartCoroutine(DifficultyTransition(GameManager.difficulty, 2f));
         }
 
+    }
+
+    public void AnimationComplete(string animationName)
+    {
+        studentAnimator.ResetTrigger(animationName);
     }
 
 
@@ -198,15 +205,16 @@ public class GameSequenceManager : MonoBehaviour
             float laughsGained = GameUIManager.fill.fillAmount + GameConstants.laughGainAmount;
             correctActions += 1;
             GameUIManager.inputText.color = Color.green;
+            studentAnimator.SetTrigger(GameConstants.correctAnswerTrigger);
             yield return StartCoroutine(GainHealth(0.3f, laughsGained));
         }
         else
         {
-
             Debug.Log("Your health is " + currentLaughs.ToString());
             StartCoroutine(ShowFailedAction(GameConstants.failedActionRotZ, GameConstants.rotSpeed));
             float laughsLost = GameUIManager.fill.fillAmount - GameConstants.laughLossAmount;
             GameUIManager.inputText.color = Color.red;
+            studentAnimator.SetTrigger(GameConstants.incorrectAnswerTrigger);
             yield return StartCoroutine(LoseHealth(0.3f, laughsLost));
         }
 

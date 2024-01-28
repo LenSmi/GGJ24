@@ -11,7 +11,7 @@ public class StartUIManager : MonoBehaviour
     private SceneLoader SceneLoader;
     public GameObject StartMenu;
     public CanvasGroup startMenuCanvas;
-    public float fadeInDuration = 1.0f;
+    public float fadeInDuration = GameConstants.startFadeInDuration;
 
     public event Action FadeInFinished;
 

@@ -1,4 +1,3 @@
-using OpenCover.Framework.Model;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,7 +13,9 @@ namespace MainShip
 
         public const float bigGameTextSize = 6f;
         public const float gameTextSize = 3f;
-        public const float dialogueTextSize = 1.5f;
+        public const float dialogueTextSize = 1.6f;
+
+        public const float startFadeInDuration = 0.5f;
 
         public const float failedActionRotZ = 90f;
         public const float rotSpeed = 0.15f;
@@ -31,6 +32,11 @@ namespace MainShip
         public const int mediumThreshold = 10;
         public const int hardThreshold = 20;
         public const int masterThreshold = 50;
+
+        public const string incorrectAnswerTrigger = "Incorrect";
+        public const string correctAnswerTrigger = "Correct";
+        public const string idleTrigger = "Idle";
+        public const string deathTrigger = "Death";
 
 
         public enum SceneTypes
